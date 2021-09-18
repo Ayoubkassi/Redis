@@ -22,19 +22,36 @@ async function getRepos(req, res , next){
     console.log('Fetching data');
     const { username } = req.params;
 
-    const response = await fetch(`https://api.github.com/users/${username}`);
+    const response = await fetch(`https://api.github.com/users/${username}/repos`);
     const data = await response.json();
     //res.send(data);
+    //Change our data
+    const repos = [];
+    data.map((repo) => {
+      const item = {
+        title : repo.name,
+        description : repo.description,
+        language : repo.language,
+        created_at : repo.created_at,
+        fork : repo.forks,
+        issue : repo.open_issues,
+        size : repo.size,
+        star : repo.stargazers_count,
+      }
 
+      repos.push(item);
+    });
 
-    const repos = data.public_repos;
+    console.log(repos);
+
+    //const repos = data;
 
     //set data to redis
 
-    client.setex(username , 3600 , repos);
+    client.setex(username , 3600 , JSON.stringify(repos));
 
-    res.send(setResponse(username,repos));
-
+    //res.send(setResponse(username,repos));
+    res.send(repos);
 
   } catch(err){
     console.log(err);
@@ -50,7 +67,10 @@ function cache(req , res , next) {
   client.get(username , (err , data) => {
       if(err) throw err;
       if(data !== null){
-        res.send(setResponse(username, data));
+        res.send(JSON.parse(data));
+        data = JSON.parse(data);
+        //console.log(typeof(data));
+        //console.log(data);
       }
       else{
         next();
