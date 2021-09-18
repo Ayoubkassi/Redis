@@ -1,0 +1,51 @@
+Redis
+
+-key-value database
+-redis runs in Memory (Ram in your computer) unlike all database so it's Too fast
+-Caching database (things that we get a lot we load it in ms instead of s)
+-build in top of traditional database (that don't change that much)
+
+
+
+-Basic commands
+
+  -SET name Ayoub
+  -GET name
+  -SET age 21
+  -GET age
+  -EXISTS name -> return true or false (1 | 0)
+  -keys * -> give all stored values
+  -flushall -> delete all values
+  -ttl name -> time to leave (if we don't set a date it will still forever)
+  -expire name 10 (expires in 10s)
+  -setex name 10 Ayoubkassi
+
+
+-Lists :
+  -lpush friends amine -> add item to list (left push)
+  -lrange friends 0 -1 -> get all values in list
+  -rpush friends mehdi -> (right push)
+  -lpop friends (delete and return from top)
+  -rpop friens  (delete and return from bottom)
+
+
+-Sets (unique array)
+  -SADD hobbies "Bascket-ball" -> add item to a set
+  -SMEMBERS hobbies -> get all item of set
+  -SREM hobbies "Bascket-ball" -> remove item from a set
+
+
+-Hashes (like json object)
+  -HSET person name Ayoub -> add item to set { 'name' : 'Ayoub'}
+  -HGET person name -> get value from set -> return Ayoub
+  -HGETALL person -> return "name" "Ayoub"
+  -HDEL person age
+  -HEXISTS person name
+
+
+
+
+
+
+
+  
