@@ -29,14 +29,15 @@ async function getRepos(req, res , next){
     const repos = [];
     data.map((repo) => {
       const item = {
-        title : repo.name,
+        name : repo.name,
         description : repo.description,
         language : repo.language,
         created_at : repo.created_at,
-        fork : repo.forks,
-        issue : repo.open_issues,
+        forks : repo.forks,
+        issues : repo.open_issues,
         size : repo.size,
-        star : repo.stargazers_count,
+        stars : repo.stargazers_count,
+        id : repo.id
       }
 
       repos.push(item);
